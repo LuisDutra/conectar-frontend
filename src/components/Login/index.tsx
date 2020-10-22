@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom';
 import Input from '../Input';
 import FacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-import {FcGoogle } from 'react-icons/fc';
-import {FaFacebook} from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { FaFacebook } from 'react-icons/fa';
 import Button from '../Button';
 
 import axios, { AxiosError } from 'axios';
 
-import { TiSocialFacebookCircular } from 'react-icons/ti';
 
 import { inputChange } from '../../utils/inputChange';
-
-
-const Login: React.FC = () => {
-
+interface loginProps {
+  onSuccessLogin(): void;
+}
+const Login: React.FC<loginProps> = ({ onSuccessLogin }) => {
+  const [logged, setLogged] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     senha: ''
@@ -39,6 +39,7 @@ const Login: React.FC = () => {
      * data from formData state and send it to backend by using axios
      * @param {FormEvent} event
      */
+
     event.preventDefault();
 
     const { email, senha } = formData;
@@ -46,11 +47,17 @@ const Login: React.FC = () => {
     console.log(`email = ${email}, senha = ${senha}`);
     data.append('username', email);
     data.append('password', senha);
-    
-    const res = await axios.post('/api/token', data).catch((err: AxiosError) => { 
-      // Returns error message from backend
-      return err?.response?.data.detail;
-    });
+
+    const res = await axios
+      .post('/api/token', data)
+      .then(() => {
+        onSuccessLogin()
+
+      })
+      .catch((err: AxiosError) => {
+        // Returns error message from backend
+        return err?.response?.data.detail;
+      });
 
     console.log(res);
 
@@ -59,29 +66,30 @@ const Login: React.FC = () => {
 
   return (
     <BodyLogin onSubmit={handleSubmit}>
-
       <Input
+        mask=""
         id="email"
-        name="email" 
-        label="E-mail ou nome de usuário" 
+        name="email"
+        label="E-mail ou nome de usuário"
         required
         onChange={handleInputChange}
       />
       <Input
+        mask=""
         id="senha"
-        name="senha" 
-        type="password" 
-        label="Senha" 
-        subLabel="Esqueceu a senha?" 
-        pathSubLabel="#" 
+        name="senha"
+        type="password"
+        label="Senha"
+        subLabel="Esqueceu a senha?"
+        pathSubLabel="#"
         required
-        onChange={handleInputChange} 
+        onChange={handleInputChange}
       />
-      <Button 
+      <Button
         type="submit"
         theme="primary-yellow"
-        >
-          Entrar
+      >
+        Entrar
       </Button>
       <p>ou</p>
       <aside>
@@ -92,7 +100,7 @@ const Login: React.FC = () => {
           fields="name,email,picture"
           callback={responseFacebook}
           cssClass="facebook-button"
-          icon={<FaFacebook/>}
+          icon={<FaFacebook />}
         />
         <GoogleLogin
           clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"

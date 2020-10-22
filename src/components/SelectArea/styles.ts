@@ -41,7 +41,7 @@ export const BodySelectArea = styled.div`
           border-bottom:2px solid var(--yellow);
           padding:0 1.4rem;
           color:var(--orange);
-          font:500 1.2rem Roboto;
+          font:500 1rem Roboto;
         }
       }
       .area-subarea{    
@@ -56,7 +56,7 @@ export const BodySelectArea = styled.div`
           padding:0 0.4rem;
           legend{
             color:var(--green-bg);
-            font:500 1.2rem Roboto;
+            font:500 1rem Roboto;
           }
           button{
             position:absolute; 
@@ -69,10 +69,12 @@ export const BodySelectArea = styled.div`
             
           }
         }
-        fieldset{
+        >fieldset{
           height:90%;
           overflow-y:auto;
+          overflow-x:hidden;
           >button{
+            position:relative;
             margin-top:1px;
             width:100%;
             cursor:pointer;
@@ -84,7 +86,7 @@ export const BodySelectArea = styled.div`
             border:0;
             border-bottom:2px solid var(--yellow);
             padding:0 1.4rem;
-            font:500 1.2rem Roboto;
+            font:500 1rem Roboto;
             strong,span{
               color:var(--green);
               font-size:1.3rem;
@@ -102,29 +104,7 @@ export const BodySelectArea = styled.div`
               
             }
           }
-          
-          .check-box{
-            input{
-              display:none;
-            }
-            label{
-              cursor:pointer;
-              position:relative;
-              color:black;
-            }
-            
-            label::after{
-              position:relative;
-              content:"";
-              width:20px;
-              height:20px;
-              display:inline-block;
-              clip-path: polygon(83% 11%, 99% 20%, 52% 97%, 0 65%, 11% 50%, 45% 72%);
-            }
-            input:checked + label::after{
-              background:var(--green);
-            }
-          }
+
         }   
       }
     }
@@ -132,7 +112,7 @@ export const BodySelectArea = styled.div`
       grid-column:2;
       grid-row:1;
       width:100%;
-      legend{
+      >legend{
         display:flex;
         justify-content:center;
         align-items:center;
@@ -142,6 +122,42 @@ export const BodySelectArea = styled.div`
         color:white;
         font:500 1.2rem Roboto;
         border-top-right-radius:0.4rem;
+      }
+      fieldset{
+        height:90%;
+        overflow-y:auto;
+        >label{
+          display: flex;
+          justify-content:space-between;
+          align-items:center;
+          width:100%;
+          height:9%;
+          margin-top:1px;
+          background:none;
+          border:0;
+          border-bottom:2px solid var(--yellow);
+          padding:0 1.4rem;
+          font:500 1rem Roboto;
+          >svg{
+            color:var(--green);
+            font-size:1.3rem;
+          }
+          >img{
+            cursor:pointer;
+            height:2.5rem;
+            cursor:pointer;
+          }
+        }
+        legend{
+          color:var(--green-bg);
+          display:flex;
+          align-items:center;
+          justify-content:flex-start;
+          margin-left:0.4rem; 
+          width:100%;
+          font:500 1rem Roboto;
+
+        }
       }
     }
   }

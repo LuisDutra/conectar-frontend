@@ -27,7 +27,7 @@ const SelectTool: React.FC<SelectToolProps> = ({ label, callbackSelectedTools, s
    */
   useEffect(() => {
     axios
-      .get("/api/v1/habilidades/")
+      .get("/api/v1/habilidades")
       .then((response) => {
         setTools(response.data);
       })
@@ -55,7 +55,7 @@ const SelectTool: React.FC<SelectToolProps> = ({ label, callbackSelectedTools, s
   async function handleAddNewTool(tool: ToolType) {
     if (!tools.includes(tool)) {
       const res = await axios
-        .post("/api/v1/habilidade/pessoa", tool, {
+        .post("/api/v1/habilidades", tool, {
           withCredentials: true,
         })
         .then((response) => {
